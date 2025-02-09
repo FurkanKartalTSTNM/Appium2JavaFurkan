@@ -1,0 +1,11 @@
+[
+  {
+    "key": "General",
+    "androidValue": "",
+    "androidType": "",
+    "iosValue": "//XCUIElementTypeStaticText[@name=\"General\"]",
+    "iosType": "xpath"
+  }
+]
+
+
