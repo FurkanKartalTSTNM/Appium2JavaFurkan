@@ -44,7 +44,6 @@ public class iOSTestFurkan {
     public void settingsTest() throws InterruptedException {
         WebElement generalButton = iOSDriver.findElement(AppiumBy.accessibilityId("General"));
         generalButton.click();
-        System.out.println("Clicked on Alerts Views button");
         WebDriverWait wait = new WebDriverWait(iOSDriver, Duration.ofSeconds(10));
         WebElement aboutButton = iOSDriver.findElement(AppiumBy.xpath("//XCUIElementTypeStaticText[@name='About']"));
         aboutButton.click();
@@ -57,6 +56,37 @@ public class iOSTestFurkan {
 
         WebElement appsButton = iOSDriver.findElement(AppiumBy.accessibilityId("Apps"));
         appsButton.click();
+
+
+        iOSDriver.quit();
+        System.out.println("Session ended");
+    }
+
+
+    @Test
+    public void gratisTestIOS() throws InterruptedException {
+        WebElement dashboardIOS = iOSDriver.findElement(AppiumBy.xpath("//XCUIElementTypeStaticText[@name=\"81 ilde mağazadan ÜCRETSİZ TESLİMAT fırsatları\"]"));
+        dashboardIOS.click();
+        logger.info("Clicked dashboardIOS");
+        Thread.sleep(2000);
+
+        WebElement markalarIOS = iOSDriver.findElement(AppiumBy.xpath("//XCUIElementTypeButton[contains(@name, \"Markalar\")]"));
+        markalarIOS.click();
+        logger.info("Clicked markalarIOS");
+
+        Thread.sleep(2000);
+
+        WebElement kampanyalarIOS = iOSDriver.findElement(AppiumBy.xpath("//XCUIElementTypeButton[contains(@name, \"Kampanyalar\")]"));
+        kampanyalarIOS.click();
+        logger.info("Clicked kampanyalarIOS");
+
+        Thread.sleep(2000);
+
+
+        //fingerSwipe(iOSDriver, 100, 800, 100, 200, 1000);
+
+        //WebElement appsButton = iOSDriver.findElement(AppiumBy.accessibilityId("Apps"));
+        //appsButton.click();
 
 
         iOSDriver.quit();
