@@ -6,6 +6,8 @@ import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.options.XCUITestOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 
 import java.io.File;
@@ -15,6 +17,8 @@ import java.time.Duration;
 import java.util.HashMap;
 
 public class DriverManager {
+
+    private static final Logger log = LoggerFactory.getLogger(DriverManager.class);
 
     public AppiumDriver initializeDriver(String platformName, String appiumServerChoice) {
         AppiumDriver appiumDriver = null;
@@ -27,7 +31,8 @@ public class DriverManager {
 
         if (appiumServerChoice.equals("CLI server")) {
             try {
-                url = new URL("http://192.168.1.167:4723/");
+                log.info("hubUrl: {}",System.getenv("hubURL"));
+                url = new URL(System.getenv("hubURL"));
             } catch (MalformedURLException e) {
                 throw new RuntimeException(e);
             }
@@ -56,18 +61,29 @@ public class DriverManager {
                 return new AndroidDriver(url, capabilities);
             }
             case "iOS" -> {
-                XCUITestOptions xcuiTestOptions = new XCUITestOptions();
+
+                log.info("platform: {}",System.getenv("platform"));
+                log.info("udid: {}",System.getenv("udid"));
+                log.info("sessionId: {}",System.getenv("sessionId"));
+                log.info("appiumVersion: {}",System.getenv("appiumVersion"));
+
+                DesiredCapabilities capabilities = new DesiredCapabilities();
                 HashMap<String, Object> deviceParkOptions = new HashMap<>();
-                deviceParkOptions.put("sessionId", "fa822b91-012e-4f28-9de3-3e3322d03bfb");
-                deviceParkOptions.put("appiumVersion", "2.5.4");
-                xcuiTestOptions.setCapability("dp:options",deviceParkOptions);
+                deviceParkOptions.put("sessionId", System.getenv("sessionId"));
+                deviceParkOptions.put("appiumVersion", System.getenv("appiumVersion"));
 
+                capabilities.setCapability("platform",System.getenv("platform"));
+                capabilities.setCapability("dp:options", deviceParkOptions);
+                //capabilities.setCapability("platformName","iOS");
+                capabilities.setCapability("udid",System.getenv("udid"));
+                capabilities.setCapability("automationName", "XCUITest");
+                capabilities.setCapability("autoAcceptAlerts", true);
+                capabilities.setCapability("bundleId","com.pharos.Gratis");
+                capabilities.setCapability("app", "https://testinium-dev-cloud.s3.eu-west-1.amazonaws.com/enterpriseMobileApps/3.2.15_1720_-82c49ca8.ipa");
 
-                xcuiTestOptions.setPlatformName("iOS")
-                        .setAutomationName("XCUITest")
-                        .setUdid("723DDD46-03E1-488B-860B-7AAF64EC44E1")
-                        .setBundleId("com.apple.Preferences");
-                return new IOSDriver(url, xcuiTestOptions);
+                log.info("Creating driver");
+                System.out.println("deneme");
+                return new IOSDriver(url, capabilities);
             }
             default -> Assert.fail("Invalid platform name is passed. Please pass either 'Android' or 'iOS'");
         }
