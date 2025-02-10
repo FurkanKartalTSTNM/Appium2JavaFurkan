@@ -38,30 +38,23 @@ public class iOSTest {
         System.out.println("Session ended");
     }
 
-    // Kaydırma işlemi için fingerSwipe fonksiyonu
     public static void fingerSwipe(AppiumDriver driver, int startX, int startY, int endX, int endY, long timeInMillis) {
         PointerInput touchAction = new PointerInput(PointerInput.Kind.TOUCH, "touchAction");
 
-        // Başlangıç hareketi
         Interaction moveToStart = touchAction.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), startX, startY);
 
-        // Parmağın basılması
         Interaction pressDown = touchAction.createPointerDown(PointerInput.MouseButton.LEFT.asArg());
 
-        // Kaydırma hareketi
         Interaction moveToEnd = touchAction.createPointerMove(Duration.ofMillis(timeInMillis), PointerInput.Origin.viewport(), endX, endY);
 
-        // Parmağın bırakılması
         Interaction pressUp = touchAction.createPointerUp(PointerInput.MouseButton.LEFT.asArg());
 
-        // Tüm hareketlerin sıralanması
         Sequence swipe = new Sequence(touchAction, 0);
         swipe.addAction(moveToStart);
         swipe.addAction(pressDown);
         swipe.addAction(moveToEnd);
         swipe.addAction(pressUp);
 
-        // Kaydırma işlemini gerçekleştirme
         driver.perform(Arrays.asList(swipe));
     }
 

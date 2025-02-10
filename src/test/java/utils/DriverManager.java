@@ -5,6 +5,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.options.XCUITestOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
 
 import java.io.File;
@@ -41,14 +42,18 @@ public class DriverManager {
         }
         switch (platformName) {
             case "Android" -> {
-                UiAutomator2Options uiAutomator2Options = new UiAutomator2Options();
-                uiAutomator2Options.setPlatformName("Android")
-                        .setAutomationName("UiAutomator2")
-                        .setAvd("Pixel_8_Pro")
-                        .setApp(androidAppPath)
-                        .setAvdLaunchTimeout(Duration.ofMinutes(5))
-                        .setNewCommandTimeout(Duration.ofMinutes(2));
-                return new AndroidDriver(url, uiAutomator2Options);
+                DesiredCapabilities capabilities = new DesiredCapabilities();
+                capabilities.setCapability("platformName", "ANDROID");
+                capabilities.setCapability("udid","R68R902ETFR");
+                capabilities.setCapability("automationName", "UiAutomator2");
+                capabilities.setCapability("appPackage","com.gratis.android");
+                capabilities.setCapability("appActivity", "com.app.gratis.ui.splash.SplashActivity");
+                capabilities.setCapability("autoGrantPermissions", true);
+                capabilities.setCapability("appium:newCommandTimeout", 60000);
+
+                capabilities.setCapability("app", "https://gmt-spaces.ams3.cdn.digitaloceanspaces.com/documents/devicepark/Gratis-3.3.0_141.apk");
+
+                return new AndroidDriver(url, capabilities);
             }
             case "iOS" -> {
                 XCUITestOptions xcuiTestOptions = new XCUITestOptions();
