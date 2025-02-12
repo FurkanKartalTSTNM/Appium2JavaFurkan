@@ -31,7 +31,7 @@ public class DriverManager {
 
         if (appiumServerChoice.equals("CLI server")) {
             try {
-                log.info("hubUrl: {}",System.getenv("hubURL"));
+                System.out.println("hubUrl: {}: "+ System.getenv("hubURL"));
                 url = new URL(System.getenv("hubURL"));
             } catch (MalformedURLException e) {
                 throw new RuntimeException(e);
