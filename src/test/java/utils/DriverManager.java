@@ -22,7 +22,7 @@ public class DriverManager {
 
     public AppiumDriver initializeDriver(String platformName, String appiumServerChoice) {
         AppiumDriver appiumDriver = null;
-        URL url = null;
+        URL hubUrl = null;
         String androidAppPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" +
                 File.separator + "resources" + File.separator + "ApiDemos-debug.apk";
 
@@ -32,13 +32,13 @@ public class DriverManager {
         if (appiumServerChoice.equals("CLI server")) {
             try {
                 System.out.println("hubUrl: {}: "+ System.getenv("hubURL"));
-                url = new URL(System.getenv("hubURL"));
+                hubUrl = new URL(System.getenv("hubURL"));
             } catch (MalformedURLException e) {
                 throw new RuntimeException(e);
             }
         } else if (appiumServerChoice.equals("Appium Desktop Server")) {
             try {
-                url = new URL("http://0.0.0.0:4723/wd/hub");
+                hubUrl = new URL("http://0.0.0.0:4723/wd/hub");
             } catch (MalformedURLException e) {
                 throw new RuntimeException(e);
             }
@@ -68,7 +68,7 @@ public class DriverManager {
 
                 capabilities.setCapability("app", "https://gmt-spaces.ams3.cdn.digitaloceanspaces.com/documents/devicepark/Gratis-3.3.0_141.apk");
 
-                return new AndroidDriver(url, capabilities);
+                return new AndroidDriver(hubUrl, capabilities);
 
             case "iOS":
                 log.info("platform: {}",System.getenv("platform"));
@@ -89,7 +89,7 @@ public class DriverManager {
 
                 log.info("Creating driver");
                 System.out.println("deneme");
-                return new IOSDriver(url, capabilitiesIOS);
+                return new IOSDriver(hubUrl, capabilitiesIOS);
 
             default:
                 Assert.fail("Invalid platform name is passed. Please pass either 'Android' or 'iOS'");
