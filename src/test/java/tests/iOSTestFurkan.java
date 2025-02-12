@@ -35,6 +35,7 @@ public class iOSTestFurkan {
 
     @BeforeClass
     public void beforeClass() {
+        logger.info("-----------Test  Baslatildi------------");
         iOSDriver = new DriverManager().initializeDriver("iOS", "CLI server");
         selector = SelectorFactory.createElementHelper(SelectorType.IOS);
 
