@@ -31,7 +31,8 @@ public class DriverManager {
 
         if (appiumServerChoice.equals("CLI server")) {
             try {
-                url = new URL("https://dev-devicepark-appium-gw-service.testinium.io/wd/hub");
+                log.info("hubUrl: {}",System.getenv("hubURL"));
+                url = new URL(System.getenv("hubURL"));
             } catch (MalformedURLException e) {
                 throw new RuntimeException(e);
             }
@@ -46,25 +47,34 @@ public class DriverManager {
         }
         switch (platformName) {
             case "Android":
-                DesiredCapabilities capabilitiesAndroid = new DesiredCapabilities();
+                log.info("platform: {}",System.getenv("platform"));
+                log.info("udid: {}",System.getenv("udid"));
+                log.info("sessionId: {}",System.getenv("sessionId"));
+                log.info("appiumVersion: {}",System.getenv("appiumVersion"));
+                DesiredCapabilities capabilities = new DesiredCapabilities();
                 HashMap<String, Object> deviceParkOptions = new HashMap<>();
-                deviceParkOptions.put("sessionId", "d169dfea-de8e-4b75-85fb-6ff19fc85192");
-                deviceParkOptions.put("appiumVersion", "2.5.4");
+                deviceParkOptions.put("sessionId", System.getenv("sessionId"));
+                deviceParkOptions.put("appiumVersion", System.getenv("appiumVersion"));
 
-                capabilitiesAndroid.setCapability("dp:options", deviceParkOptions);
-                capabilitiesAndroid.setCapability("platformName", "ANDROID");
-                capabilitiesAndroid.setCapability("udid", "LGH870d82f54fb");
-                capabilitiesAndroid.setCapability("automationName", "UiAutomator2");
-                capabilitiesAndroid.setCapability("appPackage", "com.gratis.android");
-                capabilitiesAndroid.setCapability("appActivity", "com.app.gratis.ui.splash.SplashActivity");
-                capabilitiesAndroid.setCapability("autoGrantPermissions", true);
-                capabilitiesAndroid.setCapability("appium:newCommandTimeout", 60000);
 
-                capabilitiesAndroid.setCapability("app", "https://gmt-spaces.ams3.cdn.digitaloceanspaces.com/documents/devicepark/Gratis-3.3.0_141.apk");
+                capabilities.setCapability("dp:options", deviceParkOptions);
+                capabilities.setCapability("platform",System.getenv("platform"));
+                capabilities.setCapability("udid",System.getenv("udid"));
+                capabilities.setCapability("automationName", "UiAutomator2");
+                capabilities.setCapability("appPackage", "com.gratis.android");
+                capabilities.setCapability("appActivity", "com.app.gratis.ui.splash.SplashActivity");
+                capabilities.setCapability("autoGrantPermissions", true);
+                capabilities.setCapability("appium:newCommandTimeout", 60000);
 
-                return new AndroidDriver(url, capabilitiesAndroid);
+                capabilities.setCapability("app", "https://gmt-spaces.ams3.cdn.digitaloceanspaces.com/documents/devicepark/Gratis-3.3.0_141.apk");
+
+                return new AndroidDriver(url, capabilities);
 
             case "iOS":
+                log.info("platform: {}",System.getenv("platform"));
+                log.info("udid: {}",System.getenv("udid"));
+                log.info("sessionId: {}",System.getenv("sessionId"));
+                log.info("appiumVersion: {}",System.getenv("appiumVersion"));
                 DesiredCapabilities capabilitiesIOS = new DesiredCapabilities();
                // HashMap<String, Object> deviceParkOptions = new HashMap<>();
                // deviceParkOptions.put("sessionId", "d169dfea-de8e-4b75-85fb-6ff19fc85192");
