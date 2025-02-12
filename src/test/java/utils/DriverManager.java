@@ -34,7 +34,7 @@ public class DriverManager {
                 System.out.println("hubUrl: {}: "+ System.getenv("hubURL"));
                 System.out.println("hubUrl: {}: "+ System.getProperty("hubURL"));
 
-                hubUrl = new URL(System.getenv("hubURL"));
+                hubUrl = new URL(System.getProperty("hubURL"));
             } catch (MalformedURLException e) {
                 throw new RuntimeException(e);
             }
@@ -49,19 +49,19 @@ public class DriverManager {
         }
         switch (platformName) {
             case "Android":
-                log.info("platform: {}",System.getenv("platform"));
-                log.info("udid: {}",System.getenv("udid"));
-                log.info("sessionId: {}",System.getenv("sessionId"));
-                log.info("appiumVersion: {}",System.getenv("appiumVersion"));
+                log.info("platform: {}",System.getProperty("platform"));
+                log.info("udid: {}",System.getProperty("udid"));
+                log.info("sessionId: {}",System.getProperty("sessionId"));
+                log.info("appiumVersion: {}",System.getProperty("appiumVersion"));
                 DesiredCapabilities capabilities = new DesiredCapabilities();
                 HashMap<String, Object> deviceParkOptions = new HashMap<>();
-                deviceParkOptions.put("sessionId", System.getenv("sessionId"));
-                deviceParkOptions.put("appiumVersion", System.getenv("appiumVersion"));
+                deviceParkOptions.put("sessionId", System.getProperty("sessionId"));
+                deviceParkOptions.put("appiumVersion", System.getProperty("appiumVersion"));
 
 
                 capabilities.setCapability("dp:options", deviceParkOptions);
-                capabilities.setCapability("platform",System.getenv("platform"));
-                capabilities.setCapability("udid",System.getenv("udid"));
+                capabilities.setCapability("platform",System.getProperty("platform"));
+                capabilities.setCapability("udid",System.getProperty("udid"));
                 capabilities.setCapability("automationName", "UiAutomator2");
                 capabilities.setCapability("appPackage", "com.gratis.android");
                 capabilities.setCapability("appActivity", "com.app.gratis.ui.splash.SplashActivity");
