@@ -31,8 +31,7 @@ public class DriverManager {
 
         if (appiumServerChoice.equals("CLI server")) {
             try {
-                log.info("hubUrl: {}",System.getenv("hubURL"));
-                url = new URL(System.getenv("hubURL"));
+                url = new URL("https://dev-devicepark-appium-gw-service.testinium.io/wd/hub");
             } catch (MalformedURLException e) {
                 throw new RuntimeException(e);
             }
@@ -46,47 +45,46 @@ public class DriverManager {
             Assert.fail("!!!!! Mentioned Appium server choice is incorrect !!!!!!");
         }
         switch (platformName) {
-            case "Android" -> {
-                DesiredCapabilities capabilities = new DesiredCapabilities();
-                capabilities.setCapability("platformName", "ANDROID");
-                capabilities.setCapability("udid","R68R902ETFR");
-                capabilities.setCapability("automationName", "UiAutomator2");
-                capabilities.setCapability("appPackage","com.gratis.android");
-                capabilities.setCapability("appActivity", "com.app.gratis.ui.splash.SplashActivity");
-                capabilities.setCapability("autoGrantPermissions", true);
-                capabilities.setCapability("appium:newCommandTimeout", 60000);
-
-                capabilities.setCapability("app", "https://gmt-spaces.ams3.cdn.digitaloceanspaces.com/documents/devicepark/Gratis-3.3.0_141.apk");
-
-                return new AndroidDriver(url, capabilities);
-            }
-            case "iOS" -> {
-
-                log.info("platform: {}",System.getenv("platform"));
-                log.info("udid: {}",System.getenv("udid"));
-                log.info("sessionId: {}",System.getenv("sessionId"));
-                log.info("appiumVersion: {}",System.getenv("appiumVersion"));
-
-                DesiredCapabilities capabilities = new DesiredCapabilities();
+            case "Android":
+                DesiredCapabilities capabilitiesAndroid = new DesiredCapabilities();
                 HashMap<String, Object> deviceParkOptions = new HashMap<>();
-                deviceParkOptions.put("sessionId", System.getenv("sessionId"));
-                deviceParkOptions.put("appiumVersion", System.getenv("appiumVersion"));
+                deviceParkOptions.put("sessionId", "d169dfea-de8e-4b75-85fb-6ff19fc85192");
+                deviceParkOptions.put("appiumVersion", "2.5.4");
 
-                capabilities.setCapability("platform",System.getenv("platform"));
-                capabilities.setCapability("dp:options", deviceParkOptions);
-                //capabilities.setCapability("platformName","iOS");
-                capabilities.setCapability("udid",System.getenv("udid"));
-                capabilities.setCapability("automationName", "XCUITest");
-                capabilities.setCapability("autoAcceptAlerts", true);
-                capabilities.setCapability("bundleId","com.pharos.Gratis");
-                capabilities.setCapability("app", "https://testinium-dev-cloud.s3.eu-west-1.amazonaws.com/enterpriseMobileApps/3.2.15_1720_-82c49ca8.ipa");
+                capabilitiesAndroid.setCapability("dp:options", deviceParkOptions);
+                capabilitiesAndroid.setCapability("platformName", "ANDROID");
+                capabilitiesAndroid.setCapability("udid", "LGH870d82f54fb");
+                capabilitiesAndroid.setCapability("automationName", "UiAutomator2");
+                capabilitiesAndroid.setCapability("appPackage", "com.gratis.android");
+                capabilitiesAndroid.setCapability("appActivity", "com.app.gratis.ui.splash.SplashActivity");
+                capabilitiesAndroid.setCapability("autoGrantPermissions", true);
+                capabilitiesAndroid.setCapability("appium:newCommandTimeout", 60000);
+
+                capabilitiesAndroid.setCapability("app", "https://gmt-spaces.ams3.cdn.digitaloceanspaces.com/documents/devicepark/Gratis-3.3.0_141.apk");
+
+                return new AndroidDriver(url, capabilitiesAndroid);
+
+            case "iOS":
+                DesiredCapabilities capabilitiesIOS = new DesiredCapabilities();
+               // HashMap<String, Object> deviceParkOptions = new HashMap<>();
+               // deviceParkOptions.put("sessionId", "d169dfea-de8e-4b75-85fb-6ff19fc85192");
+               // deviceParkOptions.put("appiumVersion", "2.5.4");
+
+                //capabilitiesIOS.setCapability("dp:options", deviceParkOptions);
+                capabilitiesIOS.setCapability("platformName", "iOS");
+                capabilitiesIOS.setCapability("udid", "f57820360927d404db9f5147acae9f02a5518fc6");
+                capabilitiesIOS.setCapability("automationName", "XCUITest");
+                capabilitiesIOS.setCapability("autoAcceptAlerts", true);
+                capabilitiesIOS.setCapability("bundleId", "com.pharos.Gratis");
 
                 log.info("Creating driver");
                 System.out.println("deneme");
-                return new IOSDriver(url, capabilities);
-            }
-            default -> Assert.fail("Invalid platform name is passed. Please pass either 'Android' or 'iOS'");
+                return new IOSDriver(url, capabilitiesIOS);
+
+            default:
+                Assert.fail("Invalid platform name is passed. Please pass either 'Android' or 'iOS'");
         }
+
         return appiumDriver;
     }
 }

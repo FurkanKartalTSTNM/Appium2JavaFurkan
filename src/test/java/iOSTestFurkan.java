@@ -1,16 +1,9 @@
-package tests;
-
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
-import model.SelectorInfo;
-import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Interaction;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
@@ -22,10 +15,8 @@ import selector.SelectorFactory;
 import selector.SelectorType;
 import utils.DriverManager;
 
-import javax.annotation.Nullable;
 import java.time.Duration;
 import java.util.Arrays;
-import java.util.List;
 
 public class iOSTestFurkan {
     AppiumDriver iOSDriver;

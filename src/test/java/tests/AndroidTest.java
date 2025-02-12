@@ -1,11 +1,11 @@
 package tests;
 
 import io.appium.java_client.android.AndroidDriver;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
 import selector.Selector;
 import selector.SelectorFactory;
 import selector.SelectorType;
@@ -23,6 +23,11 @@ public class AndroidTest {
     protected static Selector selector ;
     Logger logger = LoggerFactory.getLogger(getClass());
 
+    @Test
+    public void testMethod() {
+        System.out.println("Test is running! Furkannn");
+    }
+
 
 
     @BeforeClass
@@ -33,7 +38,7 @@ public class AndroidTest {
     }
 
 
-    @Test
+    /*@Test
     public void settingsTestAndroid() throws InterruptedException {
         WebElement generalButton = androidDriver.findElement(AppiumBy.xpath("(//android.widget.ImageView[@resource-id=\"com.gratis.android:id/navigation_bar_item_icon_view\"])[1]"));
         generalButton.click();
@@ -60,6 +65,17 @@ public class AndroidTest {
 
         androidDriver.quit();
         System.out.println("Session ended");
+    }*/
+
+    @Test
+    public void settingsTestAndroid1(){
+        AppiumDriver iOSDriver = new DriverManager().initializeDriver("Android", "CLI server");
+        WebElement alertsViewButton = iOSDriver.findElement(AppiumBy.xpath("(//android.widget.ImageView[@resource-id=\"com.gratis.android:id/navigation_bar_item_icon_view\"])[1]"));
+        alertsViewButton.click();
+        System.out.println("Clicked on Alerts Views button");
+        iOSDriver.quit();
+        System.out.println("Session ended");
     }
+
 
 }
