@@ -4,6 +4,8 @@ import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
 import model.SelectorInfo;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,8 +17,7 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+
 import selector.Selector;
 import selector.SelectorFactory;
 import selector.SelectorType;
@@ -33,9 +34,9 @@ public class iOSTestFurkan {
     protected static FluentWait<AppiumDriver> appiumFluentWait;
     Logger logger = LoggerFactory.getLogger(getClass());
 
-    @BeforeClass
-    public void beforeClass() {
-        iOSDriver = new DriverManager().initializeDriver("iOS", "CLI server");
+    @BeforeAll
+    public static void beforeClass() {
+        //iOSDriver = new DriverManager().initializeDriver("iOS", "CLI server");
         selector = SelectorFactory.createElementHelper(SelectorType.IOS);
 
     }

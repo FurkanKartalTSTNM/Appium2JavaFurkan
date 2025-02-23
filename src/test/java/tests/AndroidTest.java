@@ -2,14 +2,18 @@ package tests;
 
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Platform;
+import org.openqa.selenium.interactions.Interaction;
+import org.openqa.selenium.interactions.PointerInput;
+import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+
 import selector.Selector;
 import selector.SelectorFactory;
 import selector.SelectorType;
@@ -25,6 +29,7 @@ import org.openqa.selenium.WebElement;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
@@ -33,23 +38,23 @@ import static tests.util.Constants.UDID;
 
 public class AndroidTest {
 
-    private Logger logger = LoggerFactory.getLogger(getClass());
+    private static Logger logger = LoggerFactory.getLogger(AndroidTest.class);
     protected static AndroidDriver androidDriver;
     protected static IOSDriver iosDriver;
-    protected URL hubUrl;
+    protected static URL hubUrl;
 
     protected static FluentWait<AppiumDriver> appiumFluentWait;
     protected static Selector selector ;
 
-    Boolean DeviceAndroid =false;
+    static Boolean DeviceAndroid =false;
 
 
-    @BeforeClass
-    public void beforeClass() {
+    @BeforeAll
+    public static void beforeClass() {
         try {
             if(DeviceAndroid || TestiniumEnvironment.isPlatformAndroid()){
                 DesiredCapabilities overridden = new DesiredCapabilities();
-                hubUrl = new URL(System.getenv("hubURL"));
+                hubUrl = new URL("https://dev-devicepark-appium-gw-service.testinium.io/wd/hub");
                 DesiredCapabilities capabilities = new DesiredCapabilities();
                 androidDriver = new TestiniumAndroidDriver(hubUrl, overridden);
 
@@ -96,6 +101,7 @@ public class AndroidTest {
 
     @Test
     public void settingsTestAndroid() throws InterruptedException {
+
         WebElement generalButton = androidDriver.findElement(AppiumBy.xpath("(//android.widget.ImageView[@resource-id=\"com.gratis.android:id/navigation_bar_item_icon_view\"])[1]"));
         generalButton.click();
         logger.info("Clicked to HomePage");
@@ -121,6 +127,52 @@ public class AndroidTest {
 
         androidDriver.quit();
         System.out.println("Session ended");
+    }
+
+    @Test
+    public void iosTest() throws InterruptedException {
+        fingerSwipe(iosDriver, 100, 800, 100, 600, 1000);
+        Thread.sleep(2000);
+        WebElement generalButton = iosDriver.findElement(AppiumBy.accessibilityId("Genel"));
+        generalButton.click();
+
+        WebElement settingsButton = iosDriver.findElement(AppiumBy.xpath("//XCUIElementTypeButton[@name=\"Ayarlar\"]"));
+        settingsButton.click();
+        fingerSwipe(iosDriver, 100, 800, 100, 400, 1000);
+
+
+        Thread.sleep(2000);
+        WebElement cameraButton = iosDriver.findElement(AppiumBy.accessibilityId("Gizlilik"));
+        cameraButton.click();
+
+        //WebElement backButton = iosDriver.findElement(AppiumBy.accessibilityId("Back"));
+        //backButton.click();
+
+
+        iosDriver.quit();
+
+    }
+
+
+
+    public static void fingerSwipe(AppiumDriver driver, int startX, int startY, int endX, int endY, long timeInMillis) {
+        PointerInput touchAction = new PointerInput(PointerInput.Kind.TOUCH, "touchAction");
+
+        Interaction moveToStart = touchAction.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), startX, startY);
+
+        Interaction pressDown = touchAction.createPointerDown(PointerInput.MouseButton.LEFT.asArg());
+
+        Interaction moveToEnd = touchAction.createPointerMove(Duration.ofMillis(timeInMillis), PointerInput.Origin.viewport(), endX, endY);
+
+        Interaction pressUp = touchAction.createPointerUp(PointerInput.MouseButton.LEFT.asArg());
+
+        Sequence swipe = new Sequence(touchAction, 0);
+        swipe.addAction(moveToStart);
+        swipe.addAction(pressDown);
+        swipe.addAction(moveToEnd);
+        swipe.addAction(pressUp);
+
+        driver.perform(Arrays.asList(swipe));
     }
 
 }

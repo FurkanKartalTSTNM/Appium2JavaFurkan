@@ -18,13 +18,14 @@ public class TestiniumEnvironment {
     public void init() {
         profile = "testinium";
         String envProfile = System.getenv("profile");
+        envProfile="testinium";
 
         if (envProfile.equals("testinium")) {
-            sessionId = System.getenv("sessionId") != null ? System.getenv("sessionId") : "b044c078-d8f4-4a9e-bcbe-ff8ad92fcd87";
+            sessionId = System.getenv("sessionId") != null ? System.getenv("sessionId") : "ad70ba7e-1b42-470f-9393-035cdd7569e6";
             appiumVersion = System.getenv("appiumVersion") != null ? System.getenv("appiumVersion") : "2.5.4";
             takeScreenRecording = System.getenv("takeScreenRecording") != null ? System.getenv("takeScreenRecording") : "true";
             app = System.getenv("app") != null ? System.getenv("app") : "null";
-            udid = System.getenv("udid") != null ? System.getenv("udid") : "null";
+            udid = System.getenv("udid") != null ? System.getenv("udid") : "f57820360927d404db9f5147acae9f02a5518fc6";
             String hubUrlString = System.getenv("hubURL") != null ? System.getenv("hubURL") : "http://localhost:4723";
             try {
                 hubURL = new URL(hubUrlString);
