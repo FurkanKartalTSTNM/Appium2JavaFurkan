@@ -8,7 +8,6 @@ import io.appium.java_client.ios.options.XCUITestOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -31,7 +30,7 @@ public class DriverManager {
 
         if (appiumServerChoice.equals("CLI server")) {
             try {
-                url = new URL("https://dev-devicepark-appium-gw-service.testinium.io/wd/hub");
+                url = new URL("http://192.168.1.89:4723/");
             } catch (MalformedURLException e) {
                 throw new RuntimeException(e);
             }
@@ -42,19 +41,18 @@ public class DriverManager {
                 throw new RuntimeException(e);
             }
         } else {
-            Assert.fail("!!!!! Mentioned Appium server choice is incorrect !!!!!!");
+           // Assert.fail("!!!!! Mentioned Appium server choice is incorrect !!!!!!");
         }
         switch (platformName) {
             case "Android" -> {
                 DesiredCapabilities capabilities = new DesiredCapabilities();
                 capabilities.setCapability("platformName", "ANDROID");
-                capabilities.setCapability("udid","R68R902ETFR");
+                capabilities.setCapability("udid", "R68R902ETFR");
                 capabilities.setCapability("automationName", "UiAutomator2");
-                capabilities.setCapability("appPackage","com.gratis.android");
+                capabilities.setCapability("appPackage", "com.gratis.android");
                 capabilities.setCapability("appActivity", "com.app.gratis.ui.splash.SplashActivity");
                 capabilities.setCapability("autoGrantPermissions", true);
                 capabilities.setCapability("appium:newCommandTimeout", 60000);
-
                 capabilities.setCapability("app", "https://gmt-spaces.ams3.cdn.digitaloceanspaces.com/documents/devicepark/Gratis-3.3.0_141.apk");
 
                 return new AndroidDriver(url, capabilities);
@@ -66,19 +64,18 @@ public class DriverManager {
                 deviceParkOptions.put("appiumVersion", "2.5.4");
 
                 capabilities.setCapability("dp:options", deviceParkOptions);
-                capabilities.setCapability("platformName","iOS");
-                capabilities.setCapability("udid","f57820360927d404db9f5147acae9f02a5518fc6");
+                capabilities.setCapability("platformName", "iOS");
+                capabilities.setCapability("udid", "f57820360927d404db9f5147acae9f02a5518fc6");
                 capabilities.setCapability("automationName", "XCUITest");
                 capabilities.setCapability("autoAcceptAlerts", true);
-                capabilities.setCapability("bundleId","com.pharos.Gratis");
-                //capabilities.setCapability("app", "https://testinium-dev-cloud.s3.eu-west-1.amazonaws.com/enterpriseMobileApps/3.2.15_1720_-82c49ca8.ipa");
+                capabilities.setCapability("bundleId", "com.pharos.Gratis");
+                // capabilities.setCapability("app", "https://testinium-dev-cloud.s3.eu-west-1.amazonaws.com/enterpriseMobileApps/3.2.15_1720_-82c49ca8.ipa");
 
                 log.info("Creating driver");
                 System.out.println("deneme");
                 return new IOSDriver(url, capabilities);
             }
-            default -> Assert.fail("Invalid platform name is passed. Please pass either 'Android' or 'iOS'");
+            default -> throw new IllegalArgumentException("Beklenmeyen platform: " + platformName);
         }
-        return appiumDriver;
     }
 }
