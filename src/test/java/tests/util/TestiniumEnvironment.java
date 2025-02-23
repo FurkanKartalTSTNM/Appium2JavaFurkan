@@ -23,7 +23,7 @@ public class TestiniumEnvironment {
         System.out.println("sessionId:"+ sessionId);
 
         if (envProfile.equals("testinium")) {
-            sessionId = System.getenv("deviceParkSessionId") != null ? System.getenv("sessionId") : "ad70ba7e-1b42-470f-9393-035cdd7569e6";
+            sessionId = System.getProperty("deviceParkSessionId") != null ? System.getProperty("sessionId") : "ad70ba7e-1b42-470f-9393-035cdd7569e6";
             appiumVersion = System.getenv("appiumVersion") != null ? System.getenv("appiumVersion") : "2.5.4";
             takeScreenRecording = System.getenv("takeScreenRecording") != null ? System.getenv("takeScreenRecording") : "true";
             app = System.getenv("app") != null ? System.getenv("app") : "null";
