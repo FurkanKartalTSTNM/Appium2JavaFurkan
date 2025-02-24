@@ -32,11 +32,14 @@ public class TestiniumEnvironment {
             app = System.getProperty("app") != null ? System.getenv("app") : "null";
             udid = System.getProperty("udid") != null ? System.getenv("udid") : "f57820360927d404db9f5147acae9f02a5518fc6";
             String hubUrlString = System.getProperty("hubURL") != null ? System.getProperty("hubURL") : "http://localhost:4723";
-            try {
-                hubURL = new URL(hubUrlString);
-            } catch (Exception e) {
-                throw new RuntimeException("Geçersiz hubURL: " + hubUrlString, e);
-            }
+
+
+            System.out.println("sessionId:" +System.getProperty("sessionId") );
+            System.out.println("appiumVersion:" +System.getProperty("appiumVersion") );
+            System.out.println("sessionId:" +System.getProperty("sessionId") );
+            System.out.println("app:" +System.getProperty("app") );
+            System.out.println("udid:" +System.getProperty("udid") );
+            System.out.println("takeScreenshot:" +System.getProperty("takeScreenshot") );
 
 
 
