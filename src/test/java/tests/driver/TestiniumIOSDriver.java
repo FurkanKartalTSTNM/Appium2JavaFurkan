@@ -33,9 +33,6 @@ public class TestiniumIOSDriver extends IOSDriver implements CanRecordScreen {
             return capabilities;
         }
 
-        System.out.println("Hub:"+System.getenv("hubURL"));
-
-        System.out.println("UDID:"+System.getenv("udid"));
 
         DesiredCapabilities overridden = new DesiredCapabilities(capabilities);
         overridden.setCapability(Constants.PLATFORM_NAME, Platform.IOS);
