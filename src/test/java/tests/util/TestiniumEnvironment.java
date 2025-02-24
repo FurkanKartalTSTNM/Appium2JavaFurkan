@@ -21,6 +21,8 @@ public class TestiniumEnvironment {
         envProfile="testinium";
         sessionId = System.getProperty("sessionId");
         System.out.println("sessionId:"+ sessionId);
+        appiumVersion = System.getenv("appiumVersion");
+        System.out.println("Env Appium version:" + appiumVersion);
 
         if (envProfile.equals("testinium")) {
             sessionId = System.getProperty("sessionId") != null ? System.getProperty("sessionId") : "ad70ba7e-1b42-470f-9393-035cdd7569e6";
