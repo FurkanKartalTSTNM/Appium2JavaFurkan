@@ -23,6 +23,8 @@ public class TestiniumEnvironment {
         envProfile="testinium";
         takeScreenRecording = System.getProperty("takeScreenRecording");
         System.out.println("takeScreenRecording:"+ takeScreenRecording);
+        takeScreenRecording = System.getenv("takeScreenRecording");
+        System.out.println("takeScreenRecording2:"+ takeScreenRecording);
 
         if (envProfile.equals("testinium")) {
             sessionId = System.getProperty("sessionId") != null ? System.getProperty("sessionId") : "ad70ba7e-1b42-470f-9393-035cdd7569e6";
