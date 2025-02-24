@@ -18,6 +18,8 @@ public class TestiniumEnvironment {
 
 
     public void init() {
+        profile = System.getProperty("takeScreenRecording");
+        System.out.println("profile:"+ profile);
         profile = "testinium";
         String envProfile = System.getenv("profile");
         envProfile="testinium";
