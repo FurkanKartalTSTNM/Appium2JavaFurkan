@@ -1,7 +1,5 @@
 package tests.util;
 
-import java.net.URL;
-
 public class TestiniumEnvironment {
 
     public static String sessionId;
@@ -11,7 +9,11 @@ public class TestiniumEnvironment {
     public static String platform;
     public static String app;
     public static String udid;
-    public static URL hubURL;
+    public static String takeScreenshot;
+    public static String appPackage;
+    public static String appActivity;
+    public static String bundleId;
+    public static String hubUrl;
 
 
 
@@ -23,18 +25,30 @@ public class TestiniumEnvironment {
         System.out.println("sessionId:"+ sessionId);
 
         if (envProfile.equals("testinium")) {
-            sessionId = System.getProperty("sessionId") != null ? System.getProperty("sessionId") : "ad70ba7e-1b42-470f-9393-035cdd7569e6";
-            System.out.println("sessionId for init:"+ sessionId);
-            appiumVersion = System.getenv("appiumVersion") != null ? System.getenv("appiumVersion") : "2.5.4";
-            takeScreenRecording = System.getenv("takeScreenRecording") != null ? System.getenv("takeScreenRecording") : "true";
-            app = System.getenv("app") != null ? System.getenv("app") : "null";
-            udid = System.getProperty("udid") != null ? System.getProperty("udid") : "f57820360927d404db9f5147acae9f02a5518fc6";
-            String hubUrlString = System.getenv("hubURL") != null ? System.getenv("hubURL") : "http://localhost:4723";
-            try {
-                hubURL = new URL(hubUrlString);
-            } catch (Exception e) {
-                throw new RuntimeException("Geçersiz hubURL: " + hubUrlString, e);
-            }
+            sessionId = System.getProperty("sessionId") != null ? System.getProperty("sessionId") : "b044c078-d8f4-4a9e-bcbe-ff8ad92fcd87";
+            appiumVersion = System.getProperty("appiumVersion") != null ? System.getProperty("appiumVersion") : "2.5.4";
+            takeScreenRecording = System.getProperty("takeScreenRecording") != null ? System.getProperty("takeScreenRecording") : "true";
+            takeScreenshot = System.getProperty("takeScreenshot") != null ? System.getProperty("takeScreenRecording") : "true";
+            app = System.getProperty("app") != null ? System.getProperty("app") : "null";
+            udid = System.getProperty("udid") != null ? System.getProperty("udid") : "null";
+            appPackage = System.getProperty("appPackage") != null ? System.getProperty("appPackage") : "null";
+            appActivity = System.getProperty("appActivity") != null ? System.getProperty("appActivity") : "null";
+            bundleId = System.getProperty("bundleId") != null ? System.getProperty("bundleId") : "null";
+            hubUrl = System.getProperty("hubUrl");
+
+
+            System.out.println("sessionId:" + sessionId );
+            System.out.println("appiumVersion:" + appiumVersion);
+            System.out.println("takeScreenRecording:" + takeScreenRecording);
+            System.out.println("takeScreenshot:" + takeScreenshot);
+            System.out.println("app:" + app);
+            System.out.println("udid:" + udid);
+            System.out.println("appPackage:" + appPackage);
+            System.out.println("appActivity:" + appActivity);
+            System.out.println("bundleId:" + bundleId);
+            System.out.println("hubUrl:" + hubUrl);
+
+
 
 
 
