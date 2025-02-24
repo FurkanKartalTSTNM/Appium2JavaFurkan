@@ -133,17 +133,13 @@ public class AndroidTest {
     public void iosTest() throws InterruptedException {
         fingerSwipe(iosDriver, 100, 800, 100, 600, 1000);
         Thread.sleep(2000);
-        WebElement generalButton = iosDriver.findElement(AppiumBy.accessibilityId("Genel"));
+        WebElement generalButton = iosDriver.findElement(AppiumBy.accessibilityId("General"));
         generalButton.click();
 
-        WebElement settingsButton = iosDriver.findElement(AppiumBy.xpath("//XCUIElementTypeButton[@name=\"Ayarlar\"]"));
+        WebElement settingsButton = iosDriver.findElement(AppiumBy.xpath("//XCUIElementTypeButton[@name=\"Settings\"]"));
         settingsButton.click();
         fingerSwipe(iosDriver, 100, 800, 100, 400, 1000);
 
-
-        Thread.sleep(2000);
-        WebElement cameraButton = iosDriver.findElement(AppiumBy.accessibilityId("Gizlilik"));
-        cameraButton.click();
 
         //WebElement backButton = iosDriver.findElement(AppiumBy.accessibilityId("Back"));
         //backButton.click();
