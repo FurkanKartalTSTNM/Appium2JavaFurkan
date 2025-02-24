@@ -28,7 +28,7 @@ public class TestiniumEnvironment {
             appiumVersion = System.getenv("appiumVersion") != null ? System.getenv("appiumVersion") : "2.5.4";
             takeScreenRecording = System.getenv("takeScreenRecording") != null ? System.getenv("takeScreenRecording") : "true";
             app = System.getenv("app") != null ? System.getenv("app") : "null";
-            udid = System.getenv("udid") != null ? System.getenv("udid") : "f57820360927d404db9f5147acae9f02a5518fc6";
+            udid = System.getProperty("udid") != null ? System.getProperty("udid") : "f57820360927d404db9f5147acae9f02a5518fc6";
             String hubUrlString = System.getenv("hubURL") != null ? System.getenv("hubURL") : "http://localhost:4723";
             try {
                 hubURL = new URL(hubUrlString);
