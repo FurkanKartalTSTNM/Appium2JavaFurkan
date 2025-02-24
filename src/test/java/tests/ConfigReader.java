@@ -1,0 +1,24 @@
+package tests;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
+public class ConfigReader {
+
+    public String getPropertyValue(String key) {
+        Properties properties = new Properties();
+        try (FileInputStream input = new FileInputStream("src/test/resources/application.properties")) {
+            properties.load(input);
+            return properties.getProperty(key);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void printProperty() {
+        String value = getPropertyValue("your.property.key");
+        System.out.println("Property Value: " + value);
+    }
+}

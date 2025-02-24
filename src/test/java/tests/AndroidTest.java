@@ -26,11 +26,14 @@ import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.WebElement;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import static tests.util.Constants.UDID;
@@ -47,12 +50,17 @@ public class AndroidTest {
     protected static Selector selector ;
 
     static Boolean DeviceAndroid =false;
+     static  ConfigReader configReader;
 
 
     @BeforeAll
     public static void beforeClass() {
         try {
-            System.out.println("Deneme:" +System.getProperty("platform"));
+            ConfigReader configReader = new ConfigReader();
+
+            System.out.println("demo:" +configReader.getPropertyValue("platform"));
+
+            System.out.println("Deneme:" +System.getenv("furkan"));
             if(DeviceAndroid || TestiniumEnvironment.isPlatformAndroid()){
                 DesiredCapabilities overridden = new DesiredCapabilities();
                 hubUrl = new URL("https://dev-devicepark-appium-gw-service.testinium.io/wd/hub");
@@ -97,6 +105,18 @@ public class AndroidTest {
 
         selector = SelectorFactory.createElementHelper(SelectorType.IOS);
 
+    }
+
+    public static void setEnvFromProperties() {
+        Properties properties = new Properties();
+        try (FileInputStream fis = new FileInputStream("src/test/resources/application.properties")) {
+            properties.load(fis);
+
+            // properties dosyasındaki her bir değeri ortam değişkenlerine aktar
+            System.setProperty("furkan", properties.getProperty("furkan"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
