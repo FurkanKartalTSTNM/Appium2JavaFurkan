@@ -11,41 +11,30 @@ public class TestiniumEnvironment {
     public static String platform;
     public static String app;
     public static String udid;
-    public static String takeScreenshot;
-
     public static URL hubURL;
 
 
 
     public void init() {
-        profile = System.getProperty("profile");
-        System.out.println("profile:"+ profile);
         profile = "testinium";
         String envProfile = System.getenv("profile");
         envProfile="testinium";
-        takeScreenRecording = System.getProperty("takeScreenRecording");
-        System.out.println("takeScreenRecording:"+ takeScreenRecording);
-        takeScreenRecording = System.getenv("takeScreenRecording");
-        System.out.println("takeScreenRecording2:"+ takeScreenRecording);
+        sessionId = System.getProperty("sessionId");
+        System.out.println("sessionId:"+ sessionId);
 
         if (envProfile.equals("testinium")) {
             sessionId = System.getProperty("sessionId") != null ? System.getProperty("sessionId") : "ad70ba7e-1b42-470f-9393-035cdd7569e6";
-            System.out.println("platform:"+ System.getenv("platform"));
-            appiumVersion = System.getProperty("appiumVersion") != null ? System.getProperty("appiumVersion") : "2.5.4";
-            takeScreenRecording = System.getProperty("takeScreenRecording") != null ? System.getProperty("takeScreenRecording") : "true";
-            takeScreenshot = System.getProperty("takeScreenshot") != null ? System.getProperty("takeScreenshot") : "true";
-
-            app = System.getProperty("app") != null ? System.getenv("app") : "null";
-            udid = System.getProperty("udid") != null ? System.getenv("udid") : "f57820360927d404db9f5147acae9f02a5518fc6";
-            String hubUrlString = System.getProperty("hubURL") != null ? System.getProperty("hubURL") : "http://localhost:4723";
-
-
-            System.out.println("sessionId:" +System.getProperty("sessionId") );
-            System.out.println("appiumVersion:" +System.getProperty("appiumVersion") );
-            System.out.println("takeScreenRecording:" +System.getProperty("takeScreenRecording") );
-            System.out.println("app:" +System.getProperty("app") );
-            System.out.println("udid:" +System.getProperty("udid") );
-            System.out.println("takeScreenshot:" +System.getProperty("takeScreenshot") );
+            System.out.println("sessionId for init:"+ sessionId);
+            appiumVersion = System.getenv("appiumVersion") != null ? System.getenv("appiumVersion") : "2.5.4";
+            takeScreenRecording = System.getenv("takeScreenRecording") != null ? System.getenv("takeScreenRecording") : "true";
+            app = System.getenv("app") != null ? System.getenv("app") : "null";
+            udid = System.getenv("udid") != null ? System.getenv("udid") : "f57820360927d404db9f5147acae9f02a5518fc6";
+            String hubUrlString = System.getenv("hubURL") != null ? System.getenv("hubURL") : "http://localhost:4723";
+            try {
+                hubURL = new URL(hubUrlString);
+            } catch (Exception e) {
+                throw new RuntimeException("Geçersiz hubURL: " + hubUrlString, e);
+            }
 
 
 
