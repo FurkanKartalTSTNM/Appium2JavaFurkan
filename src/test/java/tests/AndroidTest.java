@@ -52,7 +52,7 @@ public class AndroidTest {
     @BeforeAll
     public static void beforeClass() {
         try {
-            System.out.println("Deneme:" +System.getProperty("phForTargetTest"));
+            System.out.println("Deneme:" +System.getProperty("platform"));
             if(DeviceAndroid || TestiniumEnvironment.isPlatformAndroid()){
                 DesiredCapabilities overridden = new DesiredCapabilities();
                 hubUrl = new URL("https://dev-devicepark-appium-gw-service.testinium.io/wd/hub");
