@@ -25,13 +25,13 @@ public class TestiniumEnvironment {
         System.out.println("Env Appium version:" + appiumVersion);
 
         if (envProfile.equals("testinium")) {
-            sessionId = System.getenv("sessionId") != null ? System.getenv("sessionId") : "ad70ba7e-1b42-470f-9393-035cdd7569e6";
+            sessionId = System.getProperty("sessionId") != null ? System.getProperty("sessionId") : "ad70ba7e-1b42-470f-9393-035cdd7569e6";
             System.out.println("platform:"+ System.getenv("platform"));
-            appiumVersion = System.getenv("appiumVersion") != null ? System.getenv("appiumVersion") : "2.5.4";
-            takeScreenRecording = System.getenv("takeScreenRecording") != null ? System.getenv("takeScreenRecording") : "true";
-            app = System.getenv("app") != null ? System.getenv("app") : "null";
-            udid = System.getenv("udid") != null ? System.getenv("udid") : "f57820360927d404db9f5147acae9f02a5518fc6";
-            String hubUrlString = System.getenv("hubURL") != null ? System.getenv("hubURL") : "http://localhost:4723";
+            appiumVersion = System.getProperty("appiumVersion") != null ? System.getProperty("appiumVersion") : "2.5.4";
+            takeScreenRecording = System.getProperty("takeScreenRecording") != null ? System.getProperty("takeScreenRecording") : "true";
+            app = System.getProperty("app") != null ? System.getenv("app") : "null";
+            udid = System.getProperty("udid") != null ? System.getenv("udid") : "f57820360927d404db9f5147acae9f02a5518fc6";
+            String hubUrlString = System.getProperty("hubURL") != null ? System.getProperty("hubURL") : "http://localhost:4723";
             try {
                 hubURL = new URL(hubUrlString);
             } catch (Exception e) {
