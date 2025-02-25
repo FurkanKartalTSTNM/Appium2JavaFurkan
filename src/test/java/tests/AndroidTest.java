@@ -49,14 +49,11 @@ public class AndroidTest {
     protected static Selector selector ;
 
     static Boolean DeviceAndroid =false;
-     static ConfigReader configReader;
 
 
     @BeforeAll
     public static void beforeClass() {
         try {
-
-            System.out.println("demo:" +configReader.getPropertyValue("platform"));
 
             System.out.println("Deneme:" +System.getenv("furkan"));
             if(DeviceAndroid || TestiniumEnvironment.isPlatformAndroid()){
