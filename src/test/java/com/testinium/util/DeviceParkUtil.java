@@ -1,11 +1,10 @@
-package tests.util;
+package com.testinium.util;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.util.HashMap;
 
-import static tests.util.Constants.EnvironmentConstants.*;
-
+import static com.testinium.util.Constants.EnvironmentConstants.*;
 
 public class DeviceParkUtil {
 

@@ -1,4 +1,4 @@
-package tests.model;
+package com.testinium.model;
 
 public enum TestStatusType {
 

@@ -1,8 +1,8 @@
-package tests.util;
+package com.testinium.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import tests.model.Folder;
+import com.testinium.model.Folder;
 
 import java.io.File;
 import java.io.FileOutputStream;

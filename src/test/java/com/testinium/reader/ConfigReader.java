@@ -1,4 +1,4 @@
-package tests.reader;
+package com.testinium.reader;
 
 import java.io.FileInputStream;
 import java.io.IOException;
