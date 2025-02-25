@@ -2,6 +2,7 @@ package tests;
 
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Platform;
@@ -185,6 +186,15 @@ public class AndroidTest {
         swipe.addAction(pressUp);
 
         driver.perform(Arrays.asList(swipe));
+    }
+
+    @AfterAll
+    public static void afterAll(){
+        if (androidDriver==null){
+            iosDriver.quit();
+        }
+        androidDriver.quit();
+
     }
 
 }
