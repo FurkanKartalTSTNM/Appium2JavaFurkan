@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.testinium.util.Constants.SESSION;
+import static tests.util.Constants.SESSION;
+
 
 public class CommandUtil {
 

@@ -1,13 +1,14 @@
 package tests.driver;
 
-import com.testinium.report.CommandResultLog;
-import com.testinium.util.*;
+
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.remote.Command;
 import org.openqa.selenium.remote.Response;
 import org.openqa.selenium.remote.ScreenshotException;
 import org.openqa.selenium.remote.SessionId;
 import org.openqa.selenium.remote.http.HttpRequest;
+import tests.report.CommandResultLog;
+import tests.util.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,8 +17,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static com.testinium.util.Constants.ignoredCommands;
-import static com.testinium.util.StringUtil.subStringWithMaximumLength;
+import static tests.util.Constants.ignoredCommands;
+import static tests.util.StringUtil.subStringWithMaximumLength;
+
 
 public class TestiniumDriver {
 

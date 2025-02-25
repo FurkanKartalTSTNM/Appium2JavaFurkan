@@ -4,7 +4,8 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.util.HashMap;
 
-import static com.testinium.util.Constants.EnvironmentConstants.*;
+import static tests.util.Constants.EnvironmentConstants.*;
+
 
 public class DeviceParkUtil {
 

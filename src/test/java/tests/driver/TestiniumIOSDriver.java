@@ -1,18 +1,19 @@
 package tests.driver;
 
-import com.testinium.util.Constants;
-import com.testinium.util.TestiniumEnvironment;
+
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.screenrecording.CanRecordScreen;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import tests.util.Constants;
+import tests.util.TestiniumEnvironment;
 
 import java.net.URL;
 
-import static com.testinium.util.Constants.DEFAULT_PROFILE;
-import static com.testinium.util.Constants.UDID;
-import static com.testinium.util.DeviceParkUtil.setDeviceParkOptions;
-import static com.testinium.util.MediaUtil.*;
+import static tests.util.Constants.DEFAULT_PROFILE;
+import static tests.util.Constants.UDID;
+import static tests.util.DeviceParkUtil.setDeviceParkOptions;
+import static tests.util.MediaUtil.*;
 
 
 public class TestiniumIOSDriver extends IOSDriver implements CanRecordScreen {
@@ -20,7 +21,7 @@ public class TestiniumIOSDriver extends IOSDriver implements CanRecordScreen {
 
     public TestiniumIOSDriver(URL hubUrl, DesiredCapabilities capabilities) throws Exception {
         super(new TestiniumCommandExecutor(hubUrl), overrideCapabilities(capabilities));
-        com.testinium.driver.TestiniumDriver.registerDriver(this.getSessionId(), this);
+        tests.driver.TestiniumDriver.registerDriver(this.getSessionId(), this);
         if (recordingAllowed()){
             startScreenRecordingForIOS(this.getRemoteAddress(),this.getSessionId());
         }

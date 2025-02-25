@@ -1,6 +1,7 @@
 package tests.util;
 
-import com.testinium.reader.ConfigReader;
+
+import tests.reader.ConfigReader;
 
 public class TestiniumEnvironment {
 
