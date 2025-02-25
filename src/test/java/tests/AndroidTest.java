@@ -19,21 +19,17 @@ import selector.SelectorFactory;
 import selector.SelectorType;
 import tests.driver.TestiniumAndroidDriver;
 import tests.driver.TestiniumIOSDriver;
-import tests.reader.ConfigReader;
 import tests.util.Constants;
 import tests.util.TestiniumEnvironment;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.WebElement;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
-import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import static tests.util.Constants.UDID;
@@ -49,7 +45,7 @@ public class AndroidTest {
     protected static FluentWait<AppiumDriver> appiumFluentWait;
     protected static Selector selector ;
 
-    static Boolean DeviceAndroid =true;
+    static Boolean DeviceAndroid =false;
 
 
     @BeforeAll
@@ -146,14 +142,23 @@ public class AndroidTest {
         fingerSwipe(iosDriver, 100, 800, 100, 400, 1000);
 
 
-        //WebElement backButton = iosDriver.findElement(AppiumBy.accessibilityId("Back"));
-        //backButton.click();
-
-
-        iosDriver.quit();
-
     }
+@Test
+public void gratisIOS() throws InterruptedException {
+    fingerSwipe(iosDriver, 100, 800, 100, 600, 1000);
+    Thread.sleep(2000);
+    WebElement dashboardButton = iosDriver.findElement(AppiumBy.xpath("//XCUIElementTypeStaticText[@name=\"81 ilde mağazadan ÜCRETSİZ TESLİMAT fırsatları\"]\n"));
+    dashboardButton.click();
 
+    WebElement markalar = iosDriver.findElement(AppiumBy.xpath("//XCUIElementTypeButton[contains(@name, \"Markalar\")]\n"));
+    markalar.click();
+    fingerSwipe(iosDriver, 100, 800, 100, 400, 1000);
+
+    WebElement kampanyalar = iosDriver.findElement(AppiumBy.xpath("//XCUIElementTypeButton[contains(@name, \"Kampanyalar\")]"));
+    kampanyalar.click();
+
+
+}
 
 
     public static void fingerSwipe(AppiumDriver driver, int startX, int startY, int endX, int endY, long timeInMillis) {
@@ -174,6 +179,19 @@ public class AndroidTest {
         swipe.addAction(pressUp);
 
         driver.perform(Arrays.asList(swipe));
+    }
+
+
+    @AfterAll
+    public static void afterAll(){
+        try {
+            if(DeviceAndroid || TestiniumEnvironment.isPlatformAndroid()){
+                androidDriver.quit();
+            }
+            iosDriver.quit();
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        }
     }
 
 }
