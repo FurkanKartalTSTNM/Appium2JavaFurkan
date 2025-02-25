@@ -1,4 +1,4 @@
-package com.testinium.util;
+package tests.util;
 
 import org.openqa.selenium.remote.Response;
 

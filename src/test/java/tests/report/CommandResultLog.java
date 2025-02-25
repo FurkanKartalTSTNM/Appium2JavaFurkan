@@ -1,4 +1,4 @@
-package com.testinium.report;
+package tests.report;
 
 import java.io.Serializable;
 import java.util.Date;

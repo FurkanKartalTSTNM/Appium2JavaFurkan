@@ -1,4 +1,4 @@
-package com.testinium.util;
+package tests.util;
 
 import java.util.Arrays;
 import java.util.List;

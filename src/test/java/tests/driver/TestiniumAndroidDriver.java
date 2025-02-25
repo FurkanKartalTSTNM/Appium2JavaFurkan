@@ -1,24 +1,26 @@
-package com.testinium.driver;
+package tests.driver;
 
-import com.testinium.util.Constants;
-import com.testinium.util.DeviceParkUtil;
-import com.testinium.util.TestiniumEnvironment;
+
 import io.appium.java_client.CommandExecutionHelper;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.screenrecording.BaseStartScreenRecordingOptions;
 import io.appium.java_client.screenrecording.BaseStopScreenRecordingOptions;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import tests.util.Constants;
+import tests.util.DeviceParkUtil;
+import tests.util.TestiniumEnvironment;
 
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.testinium.util.Constants.PLATFORM_NAME;
-import static com.testinium.util.Constants.UDID;
-import static com.testinium.util.MediaUtil.*;
+
 import static io.appium.java_client.MobileCommand.startRecordingScreenCommand;
 import static io.appium.java_client.MobileCommand.stopRecordingScreenCommand;
+import static tests.util.Constants.PLATFORM_NAME;
+import static tests.util.Constants.UDID;
+import static tests.util.MediaUtil.*;
 
 public class TestiniumAndroidDriver extends AndroidDriver {
 

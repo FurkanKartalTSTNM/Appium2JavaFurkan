@@ -1,6 +1,5 @@
-package com.testinium;
+package tests;
 
-import com.testinium.util.TestiniumEnvironment;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import org.junit.jupiter.api.AfterAll;
@@ -18,21 +17,26 @@ import org.slf4j.LoggerFactory;
 import selector.Selector;
 import selector.SelectorFactory;
 import selector.SelectorType;
-import com.testinium.driver.TestiniumAndroidDriver;
-import com.testinium.driver.TestiniumIOSDriver;
-import com.testinium.util.Constants;
+import tests.driver.TestiniumAndroidDriver;
+import tests.driver.TestiniumIOSDriver;
+import tests.reader.ConfigReader;
+import tests.util.Constants;
+import tests.util.TestiniumEnvironment;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.WebElement;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-import static com.testinium.util.Constants.UDID;
+import static tests.util.Constants.UDID;
 
 
 public class AndroidTest {
