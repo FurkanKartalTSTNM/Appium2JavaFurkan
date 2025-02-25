@@ -1,13 +1,13 @@
 package tests.driver;
 
+import com.testinium.report.CommandResultLog;
+import com.testinium.util.*;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.remote.Command;
 import org.openqa.selenium.remote.Response;
 import org.openqa.selenium.remote.ScreenshotException;
 import org.openqa.selenium.remote.SessionId;
 import org.openqa.selenium.remote.http.HttpRequest;
-import tests.report.CommandResultLog;
-import tests.util.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,9 +16,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static tests.util.Constants.ignoredCommands;
-import static tests.util.StringUtil.subStringWithMaximumLength;
-
+import static com.testinium.util.Constants.ignoredCommands;
+import static com.testinium.util.StringUtil.subStringWithMaximumLength;
 
 public class TestiniumDriver {
 
@@ -75,8 +74,11 @@ public class TestiniumDriver {
         commandResultLog.setRuntime(runtime);
 
         try {
-            String screenShotFilePath = MediaUtil.takeScreenShot(command);
-            commandResultLog.setScreenShotFilePath(screenShotFilePath);
+            if (Constants.DEFAULT_SCREENSHOT_ENABLED.equals(TestiniumEnvironment.takeScreenshot) || Constants.DEFAULT_SCREENSHOT_ONLY_FAILURE.equals(TestiniumEnvironment.takeScreenshot)){
+                String screenshotName = MediaUtil.takeScreenShot(command);
+                commandResultLog.setScreenshotName(screenshotName);
+            }
+
         } catch (IOException e) {
             throw new ScreenshotException(command.getName());
         }

@@ -10,7 +10,6 @@ import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,9 +18,9 @@ import selector.SelectorFactory;
 import selector.SelectorType;
 import tests.driver.TestiniumAndroidDriver;
 import tests.driver.TestiniumIOSDriver;
+import tests.reader.ConfigReader;
 import tests.util.Constants;
 import tests.util.TestiniumEnvironment;
-import utils.DriverManager;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.WebElement;
@@ -50,13 +49,12 @@ public class AndroidTest {
     protected static Selector selector ;
 
     static Boolean DeviceAndroid =false;
-     static  ConfigReader configReader;
+     static ConfigReader configReader;
 
 
     @BeforeAll
     public static void beforeClass() {
         try {
-            ConfigReader configReader = new ConfigReader();
 
             System.out.println("demo:" +configReader.getPropertyValue("platform"));
 

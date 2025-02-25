@@ -1,4 +1,4 @@
-package tests;
+package tests.reader;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -15,10 +15,5 @@ public class ConfigReader {
             e.printStackTrace();
             return null;
         }
-    }
-
-    public void printProperty() {
-        String value = getPropertyValue("your.property.key");
-        System.out.println("Property Value: " + value);
     }
 }
