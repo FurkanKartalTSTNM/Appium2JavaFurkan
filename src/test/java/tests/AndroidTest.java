@@ -49,7 +49,7 @@ public class AndroidTest {
     protected static FluentWait<AppiumDriver> appiumFluentWait;
     protected static Selector selector ;
 
-    static Boolean DeviceAndroid =false;
+    static Boolean DeviceAndroid =true;
 
 
     @BeforeAll
@@ -101,18 +101,6 @@ public class AndroidTest {
 
         selector = SelectorFactory.createElementHelper(SelectorType.IOS);
 
-    }
-
-    public static void setEnvFromProperties() {
-        Properties properties = new Properties();
-        try (FileInputStream fis = new FileInputStream("src/test/resources/application.properties")) {
-            properties.load(fis);
-
-            // properties dosyasındaki her bir değeri ortam değişkenlerine aktar
-            System.setProperty("furkan", properties.getProperty("furkan"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 
@@ -186,15 +174,6 @@ public class AndroidTest {
         swipe.addAction(pressUp);
 
         driver.perform(Arrays.asList(swipe));
-    }
-
-    @AfterAll
-    public static void afterAll(){
-        if (androidDriver==null){
-            iosDriver.quit();
-        }
-        androidDriver.quit();
-
     }
 
 }
