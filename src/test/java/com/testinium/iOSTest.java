@@ -1,4 +1,4 @@
-package tests;
+package com.testinium;
 
 import utils.DriverManager;
 import io.appium.java_client.AppiumBy;

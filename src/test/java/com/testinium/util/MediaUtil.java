@@ -1,6 +1,8 @@
-package tests.util;
+package com.testinium.util;
 
+import com.testinium.driver.TestiniumDriver;
 import io.appium.java_client.AppiumDriver;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -12,24 +14,24 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.remote.Command;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.SessionId;
-import tests.driver.TestiniumDriver;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Map;
 
-import static tests.util.Constants.VIDEO;
-import static tests.util.FileUtil.saveVideo;
+import static com.testinium.util.Constants.DEFAULT_SCREENSHOT_MEDIA_TYPE;
+import static com.testinium.util.Constants.VIDEO;
+import static com.testinium.util.FileUtil.saveFile;
+import static com.testinium.util.FileUtil.saveVideo;
 
-
+@Slf4j
 public class MediaUtil {
 
     public static String takeScreenShot(Command command) throws IOException {
         AppiumDriver driver = TestiniumDriver.getDriver(command.getSessionId());
         File screenShotFile = driver.getScreenshotAs(OutputType.FILE);
-        return tests.util.FileUtil.saveFile(screenShotFile, command.getName(), "png");
+        return saveFile(screenShotFile, command.getName(), DEFAULT_SCREENSHOT_MEDIA_TYPE);
     }
 
     public static boolean recordingAllowed() {
@@ -37,12 +39,12 @@ public class MediaUtil {
     }
 
     public static void startScreenRecord(RemoteWebDriver driver) {
-        if (!TestiniumEnvironment.profile.equals("testinium")){
+        if (!TestiniumEnvironment.isProfileTestinium() || !recordingAllowed()){
             return;
         }
-        Map<String, Object> params = new HashMap<>();
-        driver.executeScript(Constants.Command.START_RECORDING, params);
+        driver.executeScript(Constants.Command.START_RECORDING, new HashMap<>());
     }
+
     public static void startScreenRecordingForIOS(URL remoteUrl, SessionId sessionId) throws Exception {
         String url = remoteUrl +"/session/"+ sessionId + "/appium/start_recording_screen";
 
@@ -81,17 +83,21 @@ public class MediaUtil {
         }
     }
 
+    private static String generateScreenShotUrl(URL remoteUrl, String sessionId) {
+        return remoteUrl + "/session/" + sessionId + "/appium/stop_recording_screen";
+    }
+
     public static void saveScreenRecord(RemoteWebDriver driver) {
-        if (!TestiniumEnvironment.profile.equals("testinium")){
+        if (!TestiniumEnvironment.isProfileTestinium()){
             return;
         }
+
         Object result = driver.executeScript(Constants.Command.STOP_RECORDING, new HashMap<>());
         try {
-            saveVideo((String) result, VIDEO);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            FileUtil.saveVideo(result.toString(), VIDEO);
+            log.info("Video saved successfully for session id {}", driver.getSessionId());
+        } catch (Exception e) {
+            log.error("Error saving screen recording for session id {}", driver.getSessionId(),  e);
         }
     }
 }

@@ -1,8 +1,9 @@
-package tests.util;
+package com.testinium.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import tests.model.Folder;
+import com.testinium.model.Folder;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -13,39 +14,40 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 public class FileUtil {
 
     public static String saveFile(File file, String fileName, String fileType) throws IOException {
         String timeStamp = String.valueOf(System.currentTimeMillis());
         String sanitizedFileName = fileName.replaceAll("\\s+", "_");
         String name = String.format("%s-%s.%s", sanitizedFileName, timeStamp, fileType);
-        String filePath = Paths.get(Folder.SCREENSHOTS.getFolderName(), name).toString();
-
-        Files.createDirectories(Paths.get(Folder.SCREENSHOTS.getFolderName()));
+        String filePath = Paths.get(Folder.SCREENHOTS.getFolderName(), name).toString();
+        Files.createDirectories(Paths.get(Folder.SCREENHOTS.getFolderName()));
         Files.copy(file.toPath(), Paths.get(filePath));
-
+        log.info("File saved successfully to {}", filePath);
         return name;
     }
 
-
-    public static void saveVideo(String base64Video, String fileName) throws IOException, InterruptedException {
+    public static void saveVideo(String base64Video, String fileName) throws IOException {
         byte[] videoBytes = Base64.getDecoder().decode(base64Video);
 
         String folderPath = Folder.REPORTS.getFolderName();
         Files.createDirectories(Paths.get(folderPath));
 
-        String filePath = String.format("%s/%s-%d.mp4", folderPath, fileName, new Date().getTime());
+        // Dosya uzantısını kontrol et (eğer uzantı yoksa ".mp4" ekle)
+        if (!fileName.toLowerCase().endsWith(".mp4")) {
+            fileName += ".mp4";
+        }
+
+        String filePath = String.format("%s/%s", folderPath, fileName);
         File file = new File(filePath);
+
         try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
             fileOutputStream.write(videoBytes);
         }
     }
 
 
-
-    /**
-     * Saves list of object as a json string
-     */
     public static <T> void saveListOfElementToFile(List<T> list, String fileName) {
         if (list.isEmpty()) {
             return;
@@ -58,10 +60,16 @@ public class FileUtil {
             String folderPath = Folder.REPORTS.getFolderName();
             Files.createDirectories(Paths.get(folderPath));
 
-            String filePath = String.format("%s/%s-%d.json", folderPath, fileName, new Date().getTime());
+            // Dosya uzantısını kontrol et (eğer uzantı yoksa ".json" ekle)
+            if (!fileName.toLowerCase().endsWith(".json")) {
+                fileName += ".json";
+            }
+
+            String filePath = String.format("%s/%s", folderPath, fileName);
             objectMapper.writeValue(new File(filePath), list);
         } catch (IOException e) {
-            System.err.println("Error saving JSON: " + e.getMessage());
+            log.error("Error occurred while saving list {} to file  {} ", list, fileName, e);
         }
     }
+
 }

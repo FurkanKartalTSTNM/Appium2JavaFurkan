@@ -1,7 +1,17 @@
-package tests.report;
+package com.testinium.report;
 
+import com.testinium.util.MediaUtil;
+import com.testinium.util.TestiniumEnvironment;
+import org.openqa.selenium.remote.Command;
+import org.openqa.selenium.remote.Response;
+import org.openqa.selenium.remote.ScreenshotException;
+import org.openqa.selenium.remote.http.HttpRequest;
+
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
+
+import static com.testinium.util.StringUtil.subStringWithMaximumLength;
 
 public class CommandResultLog implements Serializable {
 
@@ -93,5 +103,30 @@ public class CommandResultLog implements Serializable {
 
     public String getLevel() {
         return level;
+    }
+
+    public static CommandResultLog build(Command command, Date startDate, Response response, HttpRequest encodedCommand) {
+        CommandResultLog commandResultLog = new CommandResultLog();
+        Date endDate = new Date();
+        long runtime = endDate.getTime() - startDate.getTime();
+        commandResultLog.setStartDate(startDate);
+        commandResultLog.setEndDate(endDate);
+        commandResultLog.setLevel(response.getState());
+        commandResultLog.setRequestData(command.getParameters().toString());
+        commandResultLog.setRequestPath(command.getName());
+        commandResultLog.setMethod(encodedCommand.getMethod().name());
+        commandResultLog.setResponseData(subStringWithMaximumLength(response, 2000));
+        commandResultLog.setRuntime(runtime);
+
+        try {
+            if (TestiniumEnvironment.isAllowedToTakeScreenshot()){
+                String screenshotName = MediaUtil.takeScreenShot(command);
+                commandResultLog.setScreenshotName(screenshotName);
+            }
+
+        } catch (IOException e) {
+            throw new ScreenshotException(command.getName());
+        }
+        return commandResultLog;
     }
 }
