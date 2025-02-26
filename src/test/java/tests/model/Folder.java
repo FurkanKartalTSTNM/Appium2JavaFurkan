@@ -1,7 +1,8 @@
 package tests.model;
 
 public enum Folder {
-    REPORTS("reports/");
+    REPORTS("reports/"),
+    SCREENSHOTS("screenshots/");
 
     private String folderName;
 
