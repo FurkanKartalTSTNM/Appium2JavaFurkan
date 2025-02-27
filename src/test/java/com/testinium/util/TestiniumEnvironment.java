@@ -44,18 +44,19 @@ public class TestiniumEnvironment {
         bundleId = configReader.getPropertyValue("bundleId");
         hubUrl = configReader.getPropertyValue("hubURL");
 
-        log.info("sessionId:{}", sessionId);
-        log.info("appiumVersion:{}", appiumVersion);
-        log.info("takeScreenRecording:{}", takeScreenRecording);
-        log.info("takeScreenshot:{}", takeScreenshot);
-        log.info("app:{}", app);
-        log.info("udid:{}", udid);
-        log.info("appPackage:{}", appPackage);
-        log.info("appActivity:{}", appActivity);
-        log.info("bundleId:{}", bundleId);
-        log.info("hubUrl:{}", hubUrl);
-        log.info("profile:{}", profile);
-        log.info("Environment Variables Initialized");
+        System.out.println("sessionId: " + sessionId);
+        System.out.println("appiumVersion: " + appiumVersion);
+        System.out.println("takeScreenRecording: " + takeScreenRecording);
+        System.out.println("takeScreenshot: " + takeScreenshot);
+        System.out.println("app: " + app);
+        System.out.println("udid: " + udid);
+        System.out.println("appPackage: " + appPackage);
+        System.out.println("appActivity: " + appActivity);
+        System.out.println("bundleId: " + bundleId);
+        System.out.println("hubUrl: " + hubUrl);
+        System.out.println("profile: " + profile);
+        System.out.println("Environment Variables Initialized");
+
     }
 
     public static Boolean isProfileTestinium(){
@@ -74,6 +75,6 @@ public class TestiniumEnvironment {
     }
 
     public static Boolean isAllowedToTakeScreenshot() {
-        return Boolean.TRUE.toString().toLowerCase().equals(takeScreenshot) || Constants.DEFAULT_SCREENSHOT_ONLY_FAILURE.equalsIgnoreCase(takeScreenshot);
+        return Constants.DEFAULT_SCREENSHOT_ENABLED.equalsIgnoreCase(takeScreenshot) || Constants.DEFAULT_SCREENSHOT_ONLY_FAILURE.equalsIgnoreCase(takeScreenshot);
     }
 }

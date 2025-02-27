@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Base64;
-import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -34,7 +33,6 @@ public class FileUtil {
         String folderPath = Folder.REPORTS.getFolderName();
         Files.createDirectories(Paths.get(folderPath));
 
-        // Dosya uzantısını kontrol et (eğer uzantı yoksa ".mp4" ekle)
         if (!fileName.toLowerCase().endsWith(".mp4")) {
             fileName += ".mp4";
         }
@@ -46,7 +44,6 @@ public class FileUtil {
             fileOutputStream.write(videoBytes);
         }
     }
-
 
     public static <T> void saveListOfElementToFile(List<T> list, String fileName) {
         if (list.isEmpty()) {
@@ -60,7 +57,6 @@ public class FileUtil {
             String folderPath = Folder.REPORTS.getFolderName();
             Files.createDirectories(Paths.get(folderPath));
 
-            // Dosya uzantısını kontrol et (eğer uzantı yoksa ".json" ekle)
             if (!fileName.toLowerCase().endsWith(".json")) {
                 fileName += ".json";
             }
@@ -71,5 +67,4 @@ public class FileUtil {
             log.error("Error occurred while saving list {} to file  {} ", list, fileName, e);
         }
     }
-
 }
